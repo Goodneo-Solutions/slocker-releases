@@ -1,0 +1,36 @@
+# Written by sLocker's release workflow (its tools/release/releases-repo); edit it there.
+#
+# sLocker's release workflow pushes the release commit to main (with the tag go/v<version> for the Go module) and then
+# the XCFramework to the branch upload/<version>, with release.json: the version and the main commit. This turns that
+# branch into the GitHub Release <version> on that commit — which creates the tag the Swift package is resolved by —
+# with the XCFramework as its asset, and deletes the branch: the deploy key that pushes can push but cannot create
+# releases.
+name: publish release
+
+on:
+  push:
+    branches: ['upload/**']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(jq -r .version release.json)
+          target=$(jq -r .target release.json)
+          [ "upload/$version" = "$GITHUB_REF_NAME" ] || { echo "branch $GITHUB_REF_NAME does not match $version"; exit 1; }
+          if gh release view "$version" >/dev/null 2>&1; then
+            gh release upload "$version" *.xcframework.zip --clobber
+          else
+            gh release create "$version" *.xcframework.zip --target "$target" --title "sLocker $version" \
+              --notes "sLocker $version: the Swift package, the Maven repository (maven/) and the Go module (go/). Documentation: https://open.superroute.ca/developer"
+          fi
+      - name: Delete the upload branch
+        run: git push origin --delete "$GITHUB_REF_NAME"

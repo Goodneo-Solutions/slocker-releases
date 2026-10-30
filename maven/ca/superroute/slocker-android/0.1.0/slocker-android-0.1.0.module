@@ -1,0 +1,144 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "ca.superroute",
+    "module": "slocker-android",
+    "version": "0.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "ca.superroute",
+          "module": "slocker",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-core",
+          "version": {
+            "requires": "1.10.2"
+          }
+        },
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "okhttp",
+          "version": {
+            "requires": "4.12.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "slocker-android-0.1.0.jar",
+          "url": "slocker-android-0.1.0.jar",
+          "size": 20854,
+          "sha512": "e35ccd52941d516fdb86d6fd99c786f3ad02716eaa40c4ea387e1e2163cff6a77c8dae4009e9e3728ccddf6faec7856e5c63e9190377ea8a91e7c6122f0376ee",
+          "sha256": "113a5e50000d6fdd5d176a87a797192cd59b8fc4a27801f801aa198296db9fb6",
+          "sha1": "6cdcb9caae554250d2357346b20640bd8e138c03",
+          "md5": "d3ba2dd1ab0e4dfd90a4699f66c1a0e7"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "ca.superroute",
+          "module": "slocker",
+          "version": {
+            "requires": "0.1.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-core",
+          "version": {
+            "requires": "1.10.2"
+          }
+        },
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "okhttp",
+          "version": {
+            "requires": "4.12.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "slocker-android-0.1.0.jar",
+          "url": "slocker-android-0.1.0.jar",
+          "size": 20854,
+          "sha512": "e35ccd52941d516fdb86d6fd99c786f3ad02716eaa40c4ea387e1e2163cff6a77c8dae4009e9e3728ccddf6faec7856e5c63e9190377ea8a91e7c6122f0376ee",
+          "sha256": "113a5e50000d6fdd5d176a87a797192cd59b8fc4a27801f801aa198296db9fb6",
+          "sha1": "6cdcb9caae554250d2357346b20640bd8e138c03",
+          "md5": "d3ba2dd1ab0e4dfd90a4699f66c1a0e7"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "slocker-android-0.1.0-sources.jar",
+          "url": "slocker-android-0.1.0-sources.jar",
+          "size": 4563,
+          "sha512": "47c06dd82f224d867b327e2e16332a330eba8841d958d2624eab39f8e6564dcfa407bab0a9f5b567a95b009e10c47df5e3c8775d4e7de76637971236ff6a9846",
+          "sha256": "d0cd21f7fd8cb76220ee562c9690d5257bb20216954cfca35fe51191a40ad4e4",
+          "sha1": "9762edd6104589f98ca8d6297b4779c4dd5b7038",
+          "md5": "9da81ed4004c3e1b369eb2bc3f578118"
+        }
+      ]
+    }
+  ]
+}
