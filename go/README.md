@@ -220,7 +220,7 @@ $sl->partnerLockerDeliveries(status: 'delivered', perPage: 50);
 ### Java and Kotlin
 
 Add the Maven repository `https://goodneo-solutions.github.io/slocker-releases/maven`, then
-`implementation("ca.superroute:slocker:0.1.0")` — or, in an Android app, `ca.superroute:slocker-android:0.1.0`.
+`implementation("ca.superroute:slocker:0.1.1")` — or, in an Android app, `ca.superroute:slocker-android:0.1.1`.
 
 ```java
 Client sl = Client.builder().token(token).providerId(4611L).build();   // java.net.http, or HttpURLConnection on Android

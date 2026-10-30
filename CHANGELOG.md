@@ -1,9 +1,9 @@
-# Unreleased
+# 0.1.1
 
 ## Licence
 
 ### Every package
-- **Superroute SDK License**: from the next version the packages are licensed under the Superroute SDK License — see `LICENSE` and [open.superroute.ca/developer/license](https://open.superroute.ca/developer/license). Versions published before keep the licence they were published with.
+- **Superroute SDK License**: from this version on the packages are licensed under the Superroute SDK License — see `LICENSE` and [open.superroute.ca/developer/license](https://open.superroute.ca/developer/license). Versions published before keep the licence they were published with.
 
 # 0.1.0
 
