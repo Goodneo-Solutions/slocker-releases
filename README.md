@@ -239,7 +239,7 @@ $sl->partnerLockerDeliveries(status: 'delivered', perPage: 50);
 ### Java and Kotlin
 
 Add the Maven repository `https://goodneo-solutions.github.io/slocker-releases/maven`, then
-`implementation("ca.superroute:slocker:0.2.0")` — or, in an Android app, `ca.superroute:slocker-android:0.2.0`.
+`implementation("ca.superroute:slocker:0.2.1")` — or, in an Android app, `ca.superroute:slocker-android:0.2.1`.
 
 ```java
 Client sl = Client.builder().token(token).providerId(4611L).build();   // java.net.http, or HttpURLConnection on Android
@@ -397,7 +397,7 @@ locker.api.platform_app_pickups(status='ready')
 ```
 
 ```swift
-// Package.swift: .package(url: "https://github.com/Goodneo-Solutions/slocker-customer-releases", from: "0.2.0")
+// Package.swift: .package(url: "https://github.com/Goodneo-Solutions/slocker-customer-releases", from: "0.2.1")
 // in the target: .product(name: "SLockerCustomer", package: "slocker-customer-releases"), and "SLockerUI" for the kit;
 // sApp (sapp-releases) comes with it.
 import SApp
@@ -422,6 +422,19 @@ client, theme and strings in 14 languages, raise events and never navigate.
 | SwiftUI (`SLockerUI`) | `PickupList` | `LockerMap` with `SRSMapAdapter`, `SRMapAdapter`, `SRMapPoint` |
 | Jetpack Compose (`slocker-ui-android`) | `PickupList` | `LockerMap` with `SrSMapAdapter`, `SrMapAdapter`, `SrMapPoint` |
 | WPF / WinForms (`Superroute.SLocker.Wpf` / `.WinForms`) | `PickupList` (`PickupListViewModel`) | `LockerMap` (`LockerMapViewModel`, `SMapAdapter`, `IMapAdapter`, `MapPoint`) |
+
+The locker map reads its points from one of three sources (`source`):
+
+- `lockers` (the default): the service provider's smart lockers for the signed-in person, as before.
+- `pickupPoints`: smart lockers **and** pickup point counters, read anonymously with the app key alone — the same list
+  the sWidget pickup point picker shows. Each row and map point says which kind it is (*Smart locker* / *Pickup
+  point*), and search and the filters work as for lockers.
+- a loader of the app's own, given the search, position, filters and page, answering the rows and whether there are
+  more.
+
+Choosing a row or a map point raises the select event as before and, beside it, a typed selection: its kind (`locker`
+or `counter`), id, location id, name, address and position, with the row as it came. Map points carry their kind, so
+the app's map can draw counters apart from lockers.
 
 ```dart
 SuperrouteScope(
@@ -468,7 +481,7 @@ cd dart && dart pub get && dart test
 Never edit generated files (`generated/`, `Generated/`, `_operations.py`, `operations_gen.go`, `SLockerOperations.kt`):
 change Superroute's spec, sync, and generate again.
 
-The customer side has its own spec and generator, and is built against the published sApp packages (0.2.2); the
+The customer side has its own spec and generator, and is built against the published sApp packages (0.2.5); the
 generator and the locker path check read the sApp source:
 
 ```

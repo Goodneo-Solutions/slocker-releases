@@ -11,8 +11,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "SLocker",
-            url: "https://github.com/Goodneo-Solutions/slocker-releases/releases/download/0.2.0/SLocker.xcframework.zip",
-            checksum: "2dcf4da06c1fe4d8acaa22f32b5cee4ee11df379746f99dcf3e8af65e1314573"
+            url: "https://github.com/Goodneo-Solutions/slocker-releases/releases/download/0.2.1/SLocker.xcframework.zip",
+            checksum: "6e72118baa2bc0c76eb519097d93e71603885d3a30507d548677ba74ba9aca20"
         ),
     ]
 )

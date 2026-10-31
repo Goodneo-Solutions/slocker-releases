@@ -1,3 +1,16 @@
+# 0.2.1
+
+## SDK
+
+### Customer side
+- **On sApp 0.2.5**: the customer packages and UI kits now build on sApp 0.2.5, so errors carry the response headers and the seconds to wait, and the native kits follow dark mode and the corner radius.
+
+## UI kits
+
+### Flutter, web, React, React Native, SwiftUI, Jetpack Compose, WPF and WinForms
+- **Locker map with pickup points**: the locker map can show the service provider's pickup point counters beside its smart lockers, read with the app key alone so nobody needs to sign in, or points from the app's own source. Each row and map point names its kind.
+- **Typed selection**: choosing a locker or a counter also reports its kind, id, name, address and position, beside the event the map already raised.
+
 # 0.2.0
 
 ## SDK

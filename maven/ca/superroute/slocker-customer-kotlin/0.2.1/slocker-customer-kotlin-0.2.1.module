@@ -1,0 +1,116 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "ca.superroute",
+    "module": "slocker-customer-kotlin",
+    "version": "0.2.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "ca.superroute",
+          "module": "sapp",
+          "version": {
+            "requires": "0.2.5"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "slocker-customer-kotlin-0.2.1.jar",
+          "url": "slocker-customer-kotlin-0.2.1.jar",
+          "size": 13530,
+          "sha512": "f14f87376e0531de09d65bbd0f34157cfeae5b4a50569fc19a6579460848eb69f9f66ad892a7eac28319b0ac297095cc19fb8b30df469a2dd42a61108035d456",
+          "sha256": "287eb42c0215eadaadfdecf1b78f3ff38eafdf6a9eea83337299f1025876eb58",
+          "sha1": "64777812fe120edb077e415fb6da861200a8527f",
+          "md5": "7865a3f6d101542998874bfff7203894"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "ca.superroute",
+          "module": "sapp",
+          "version": {
+            "requires": "0.2.5"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "slocker-customer-kotlin-0.2.1.jar",
+          "url": "slocker-customer-kotlin-0.2.1.jar",
+          "size": 13530,
+          "sha512": "f14f87376e0531de09d65bbd0f34157cfeae5b4a50569fc19a6579460848eb69f9f66ad892a7eac28319b0ac297095cc19fb8b30df469a2dd42a61108035d456",
+          "sha256": "287eb42c0215eadaadfdecf1b78f3ff38eafdf6a9eea83337299f1025876eb58",
+          "sha1": "64777812fe120edb077e415fb6da861200a8527f",
+          "md5": "7865a3f6d101542998874bfff7203894"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "slocker-customer-kotlin-0.2.1-sources.jar",
+          "url": "slocker-customer-kotlin-0.2.1-sources.jar",
+          "size": 4807,
+          "sha512": "de4237d6b30604c8a4877a9b768ef0d6b0bc364bb335eaded057ade6ade0cb72c4edb4cca1f6a69fccab8c91d6cde6eeb5f54167f77b42241d1f0f5af61b0bac",
+          "sha256": "e77eb25c6b3d357c88bd5efc7c7e2750424274f939b9ca4a21c8c2b0fd0aea1f",
+          "sha1": "215534231b776de8d1eac0c69cbe31c8609ec329",
+          "md5": "8eb564e6c1ef9876b13f4d18e143601f"
+        }
+      ]
+    }
+  ]
+}
