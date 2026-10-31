@@ -7,7 +7,9 @@
 
 Deliver to Superroute smart lockers. sLocker is the SDK for carriers and delivery partners that put parcels into
 Superroute smart lockers: create a delivery task, open the doors remotely for the driver, confirm the deposit, follow
-the pickup, and receive and verify the webhooks — with a mock cabinet to rehearse all of it.
+the pickup, and receive and verify the webhooks — with a mock cabinet to rehearse all of it. For apps made for a
+service provider's customers, its [customer side](#customer-side) brings the parcels waiting in lockers, locker
+locations, locker storage, the locker shop and locker resale, with a pickup list and a locker map for every UI kit.
 Superroute SDK License — see [LICENSE](LICENSE) and [open.superroute.ca/developer/license](https://open.superroute.ca/developer/license).
 
 | Package | Platform | Install |
@@ -22,7 +24,24 @@ Superroute SDK License — see [LICENSE](LICENSE) and [open.superroute.ca/develo
 | `SLocker` (Swift package) | iOS 15+, macOS 12+ | `https://github.com/Goodneo-Solutions/slocker-releases` |
 | `slocker` (pub.dev) | Dart 3.5+ and Flutter | `dart pub add slocker` |
 
-Every package of a release carries the same version and covers the same operations.
+The customer side (built on [sApp](https://open.superroute.ca/developer/sapp), from sApp 0.2.2):
+
+| Package | Platform | Install |
+|---|---|---|
+| `@superrouteca/slocker-customer` (npm) | JavaScript and TypeScript: web, Node 20+, React Native | `npm install @superrouteca/slocker-customer` |
+| `@superrouteca/slocker-ui` (npm) | Web UI kit: `sr-pickup-list`, `sr-locker-map` | `npm install @superrouteca/slocker-ui` |
+| `@superrouteca/slocker-react` / `@superrouteca/slocker-react-native` (npm) | React and React Native UI kits | `npm install @superrouteca/slocker-react` |
+| `slocker_customer` / `slocker_ui` (pub.dev) | Dart; Flutter UI kit | `dart pub add slocker_customer`, `flutter pub add slocker_ui` |
+| `SLockerCustomer` / `SLockerUI` (Swift package) | iOS 15+, macOS 12+; SwiftUI kit | `https://github.com/Goodneo-Solutions/slocker-customer-releases` |
+| `ca.superroute:slocker-customer-kotlin` / `slocker-ui-android` (Maven) | Kotlin on the JVM and Android; Jetpack Compose kit | see [Java and Kotlin](#java-and-kotlin) |
+| `ca.superroute:slocker-customer` (Maven) | Java 17+ | see [Java and Kotlin](#java-and-kotlin) |
+| `Superroute.SLocker.Customer` / `.UI` / `.Wpf` / `.WinForms` (NuGet) | .NET 8; WPF and WinForms kits | `dotnet add package Superroute.SLocker.Customer` |
+| `superroute-slocker[customer]` (PyPI) | Python 3.9+, `import slocker.customer` | `pip install "superroute-slocker[customer]"` |
+| `superroute/slocker` with `superroute/sapp` (Packagist) | PHP 8.1+, `Superroute\SLocker\Customer` | `composer require superroute/slocker superroute/sapp` |
+| `github.com/Goodneo-Solutions/slocker-releases/go/customer` | Go 1.21+ | `go get github.com/Goodneo-Solutions/slocker-releases/go/customer` |
+
+Every package of a release carries the same version and covers the same operations. The carrier packages do not
+depend on sApp; only the customer side does.
 
 ## What it covers
 
@@ -220,7 +239,7 @@ $sl->partnerLockerDeliveries(status: 'delivered', perPage: 50);
 ### Java and Kotlin
 
 Add the Maven repository `https://goodneo-solutions.github.io/slocker-releases/maven`, then
-`implementation("ca.superroute:slocker:0.1.1")` — or, in an Android app, `ca.superroute:slocker-android:0.1.1`.
+`implementation("ca.superroute:slocker:0.2.0")` — or, in an Android app, `ca.superroute:slocker-android:0.2.0`.
 
 ```java
 Client sl = Client.builder().token(token).providerId(4611L).build();   // java.net.http, or HttpURLConnection on Android
@@ -267,6 +286,162 @@ final page = await sl.partnerLockerDeliveries(status: 'delivered', perPage: 50);
 Every client takes its own transport (for tests, proxies or an HTTP stack the app already has), a base URL (white-label
 API hosts and test environments), the retry count and the wait function.
 
+## Customer side
+
+Apps made for a service provider's customers — on the Open Platform's partner app surface
+(`open.superroute.ca/app/v1`) — use the customer side: 38 operations, each a method.
+
+- **Pickups** — the person's parcels in lockers with their pickup codes, opening the door to collect, handing a pickup
+  over to someone else and taking it back.
+- **Locker locations** — lockers near the person, one location, its indoor guide and feedback on it, the person's
+  preferred locker.
+- **Locker storage** — claiming a rental, keeping it, the return time, sending it on (onward quote, delivery,
+  shipment), pickup sites, resending the code.
+- **Locker shop** — the catalogue of a location, items, orders, opening the door of an order, refund requests, access
+  codes.
+- **Locker resale** — the terms, the person's deals, creating a deal, releasing or revoking the buyer's code, aborting,
+  cancelling or reporting a deal.
+
+The customer side is built on the sApp core: sign-in, token refresh, the app key for calls before sign-in, idempotency
+keys, retries, extra query and errors (`SuperrouteError` / `SuperrouteException`, a `result: false` answer included)
+are sApp's own. What a caller may do is decided by the server.
+
+### Moving from sApp
+
+From sApp 0.2.2 the smart-locker methods are in sLocker, under the same names and with the same arguments as in sApp
+0.2.1: `api.platformAppPickups()` on an sApp client becomes `api.platformAppPickups()` on an sLocker customer. The
+pickup list and the locker map of the UI kits move the same way. A path belongs to sLocker when its first segment after
+the client scope is `pickups`, `locker-locations`, `locker-storage`, `locker-shop` or `locker-resale`
+(`tools/locker_paths.json`, the same list as sApp's). Store orders stay in sApp, their locker open and refund included.
+
+| sApp 0.2.1 method | Request |
+|---|---|
+| `platformAppPickups`, `platformAppPickup` | `GET /app/v1/pickups`, `GET /app/v1/pickups/{deliveryId}` |
+| `platformAppCollectPickup` | `POST /app/v1/pickups/{deliveryId}/collect` |
+| `platformAppHandOverPickup`, `platformAppTakeBackPickup` | `POST /app/v1/pickups/{deliveryId}/handoff`, `…/handoff/revoke` |
+| `platformAppLockerLocations`, `platformAppLockerLocation` | `GET /app/v1/locker-locations`, `…/{locationId}` |
+| `platformAppLockerLocationGuide`, `platformAppLockerLocationGuideFeedback` | `GET …/{locationId}/guide`, `POST …/guide/feedback` |
+| `platformAppUpdateLockerPreference` | `PUT /app/v1/locker-locations/{locationId}/preference` |
+| `platformAppLockerShopCatalog` | `GET /app/v1/locker-locations/{locationId}/shop` |
+| `platformAppLockerShopItems`, `platformAppLockerShopOrders`, `platformAppLockerShopOrder` | `GET /app/v1/locker-shop/items`, `…/orders`, `…/orders/{id}` |
+| `platformAppLockerShopCreateOrder`, `platformAppLockerShopOpen`, `platformAppLockerShopRefundRequest` | `POST /app/v1/locker-shop/orders`, `…/{id}/open`, `…/{id}/refund-request` |
+| `platformAppLockerShopIssueAccessCode` | `POST /app/v1/locker-shop/access-codes` |
+| `platformAppLockerStorageRentals`, `platformAppLockerStorageRental` | `GET /app/v1/locker-storage/rentals`, `…/{id}` |
+| `platformAppLockerStorageClaim` | `POST /app/v1/locker-storage/rentals/claim` |
+| `platformAppLockerStorageKeep`, `…ReturnTime`, `…ResendCode`, `…OnwardQuote`, `…Delivery`, `…Shipment`, `…PickupSite`, `…PickupSiteCancel` | `POST /app/v1/locker-storage/rentals/{id}/keep`, `return-time`, `resend-code`, `onward-quote`, `delivery`, `shipment`, `pickup-site`, `pickup-site/cancel` |
+
+New in sLocker: `lockerResaleTerms`, `lockerResaleDeals`, `lockerResaleDeal`, `createLockerResaleDeal`,
+`releaseLockerResaleCode`, `revokeLockerResaleCode`, `abortLockerResaleDeal`, `cancelLockerResaleDeal`,
+`reportLockerResaleDeal` (`/app/v1/locker-resale/…`).
+
+### sLocker on its own
+
+Create a customer with your partner app's code, the service provider's client code, the app key and a token store;
+sLocker makes the sApp connection inside:
+
+```js
+import { SLocker } from '@superrouteca/slocker-customer';
+
+const locker = SLocker.customer({
+  appCode: 'p_acme_parcels',
+  clientCode: 'k3m9q2',          // the service provider's public client code
+  appKey: 'sp_appkey_…',         // restricted key for calls before sign-in
+  tokenStore,                    // your secure storage: { get, set, clear }
+  locale: 'en',
+});
+
+await locker.auth.signInWithIdToken(googleIdToken);           // sApp's sign-in
+const pickups = await locker.api.platformAppPickups({ status: 'ready' });
+await locker.api.platformAppCollectPickup({ deliveryId: 42, body: { user_confirmed: true } });
+const deals = await locker.api.lockerResaleDeals({ open: true });
+```
+
+| Language | sLocker on its own | Beside an sApp client |
+|---|---|---|
+| JavaScript | `SLocker.customer({ appCode, clientCode, appKey, tokenStore })` | `SLocker.customer({ sapp: sr })` |
+| Dart | `SLocker.customer(appCode: …, clientCode: …, appKey: …, tokenStore: …)` | `SLocker.customerFor(sr)` |
+| Swift | `SLocker.customer(appCode:clientCode:appKey:tokenStore:)` | `SLocker.customer(sapp: sr)` |
+| Kotlin | `SLocker.customer(appCode = …, clientCode = …, appKey = …, tokenStore = …)` | `SLocker.customer(sapp = sr)` |
+| Java | `SLocker.customer(appCode, clientCode, appKey, tokenStore)` or `SLocker.customer(PartnerClient.builder(…))` | `SLocker.customer(sr)` |
+| C# | `SLocker.Customer("p_acme_parcels", clientCode: …, appKey: …, tokenStore: …)` | `SLocker.Customer(sr)` |
+| Python | `customer('p_acme_parcels', client_code=…, app_key=…, token_store=…)` | `customer(sapp=sr)` |
+| PHP | `SLocker::customer('p_acme_parcels', clientCode: …, appKey: …)` | `SLocker::customer(sapp: $sr)` |
+| Go | `customer.New(customer.Options{AppCode: …, ClientCode: …, AppKey: …})` | `customer.Share(sr)` |
+
+Each answers a customer (`SLockerCustomerClient` in Swift) with `api` (one method per operation; `API` in Go, `Api` in
+C#), the sApp client underneath
+(`sapp`; `SApp` in Go and C#) for sign-in and every other partner operation, and `callOperation` for an operation
+described by hand.
+
+### Beside an sApp client
+
+An app that already uses sApp passes its client, so both share one sign-in and one token store:
+
+```dart
+import 'package:sapp/sapp.dart';
+import 'package:slocker_customer/slocker_customer.dart';
+
+final sr = PartnerClient(appCode: 'p_acme_parcels', clientCode: 'k3m9q2', appKey: 'sp_appkey_…', tokenStore: store);
+final locker = SLocker.customerFor(sr);
+final notifications = await sr.api.platformAppNotifications();   // sApp
+final pickups = await locker.api.platformAppPickups(page: 1);     // sLocker
+```
+
+```python
+from sapp import PartnerClient
+from slocker.customer import customer
+
+sr = PartnerClient('p_acme_parcels', client_code='k3m9q2', app_key='sp_appkey_…')
+locker = customer(sapp=sr)
+locker.api.platform_app_pickups(status='ready')
+```
+
+```swift
+// Package.swift: .package(url: "https://github.com/Goodneo-Solutions/slocker-customer-releases", from: "0.2.0")
+// in the target: .product(name: "SLockerCustomer", package: "slocker-customer-releases"), and "SLockerUI" for the kit;
+// sApp (sapp-releases) comes with it.
+import SApp
+import SLockerCustomer
+
+let locker = SLocker.customer(sapp: sr)
+let pickups = try await locker.api.platformAppPickups(status: "ready")
+```
+
+### UI kits: the pickup list and the locker map
+
+The pickup list (parcels in lockers, their pickup codes, opening the door after confirming) and the locker map (lockers
+near the person with distance, status and free compartments, search and filters, and the same lockers on the app's own
+sMap map) behave exactly as they did in the sApp UI kits. They sit inside the sApp kit's scope or provider, take its
+client, theme and strings in 14 languages, raise events and never navigate.
+
+| Kit | Pickup list | Locker map |
+|---|---|---|
+| Flutter (`slocker_ui`) | `SrPickupList` | `SrLockerMap` with `SrSMapAdapter`, `SrMapAdapter`, `SrMapPoint` |
+| Web (`@superrouteca/slocker-ui`) | `<sr-pickup-list>` (`SrPickupList`) | `<sr-locker-map>` (`SrLockerMap`, `smapAdapter`) |
+| React / React Native | `PickupList` | `LockerMap` (`smapAdapter`) |
+| SwiftUI (`SLockerUI`) | `PickupList` | `LockerMap` with `SRSMapAdapter`, `SRMapAdapter`, `SRMapPoint` |
+| Jetpack Compose (`slocker-ui-android`) | `PickupList` | `LockerMap` with `SrSMapAdapter`, `SrMapAdapter`, `SrMapPoint` |
+| WPF / WinForms (`Superroute.SLocker.Wpf` / `.WinForms`) | `PickupList` (`PickupListViewModel`) | `LockerMap` (`LockerMapViewModel`, `SMapAdapter`, `IMapAdapter`, `MapPoint`) |
+
+```dart
+SuperrouteScope(
+  client: sr,
+  theme: ThemeTokens.fromBranding(branding),
+  onSignInRequired: () => router.go('/sign-in'),
+  child: SrPickupList(onShowCode: (qr) => showQr(qr)),
+)
+```
+
+```html
+<script type="module">
+  import { configure } from '@superrouteca/sapp-ui';
+  import '@superrouteca/slocker-ui';
+  configure({ client: sr, theme: themeFromBranding(branding), locale: 'en' });
+</script>
+<sr-pickup-list></sr-pickup-list>
+<sr-locker-map></sr-locker-map>
+```
+
 ## Development
 
 ```
@@ -293,17 +468,55 @@ cd dart && dart pub get && dart test
 Never edit generated files (`generated/`, `Generated/`, `_operations.py`, `operations_gen.go`, `SLockerOperations.kt`):
 change Superroute's spec, sync, and generate again.
 
+The customer side has its own spec and generator, and is built against the published sApp packages (0.2.2); the
+generator and the locker path check read the sApp source:
+
+```
+specs/customer-api.json           the smart-locker operations of the partner app surface
+tools/locker_paths.json           the one list of locker paths, the same file as sApp's (tools/check_locker_paths.py)
+tools/customer_operations.json    the 38 operations the customer side must have
+tools/sync_customer_specs.py      copies the locker operations from a Superroute checkout, then generates
+tools/generate_customer.py        writes LockerApi in every language with sApp's own generator
+tools/fetch-sapp.sh, sapp-ref     the sApp source at .sapp (git-ignored), at its release tag
+```
+
+```sh
+SAPP_DIR=../sApp tools/fetch-sapp.sh                     # or tools/fetch-sapp.sh to clone it (needs read access)
+python3 -I tools/sync_customer_specs.py ../Superroute
+npm install && npm test                                  # js-customer, web-ui, react, react-native
+cd dart-customer && dart pub get && dart test
+cd flutter-ui && flutter test                            # with a pubspec_overrides.yaml naming ../dart-customer
+cd swift-customer && swift test
+cd java-customer && ./gradlew test
+cd kotlin-customer && ./gradlew :slocker-customer-kotlin:test :slocker-ui-android:testDebugUnitTest
+dotnet test dotnet/tests/Superroute.SLocker.Customer.Tests && dotnet test dotnet/tests/Superroute.SLocker.UI.Tests
+pip install superroute-sapp && python3 -m unittest discover -s python/tests
+php php/tests/customer.php                               # the sApp PHP source at .sapp/php
+(cd go/customer && go test ./...)
+```
+
+In CI the customer workflows (`customer-*.yml`) use the published sApp packages. Only the internal profile and the
+locker path check read the private sApp repository, with the secret `SAPP_DEPLOY_KEY` (a read-only deploy key of the
+sApp repository), and are skipped without it.
+
 ## Releases
 
 sLocker started at 0.1.0; each release adds 0.0.1 to the last one, skipping every version that contains the digit 3
 or 4 (0.1.0, 0.1.1, 0.1.2, 0.1.5, 0.1.6, …, 0.1.9, 0.2.0, …). Tagging a version (`0.1.1`, no `v`) runs
 `.github/workflows/release.yml`, which tests every language and then publishes:
 
-- npm (`@superrouteca/slocker`), PyPI (`superroute-slocker`), NuGet (`Superroute.SLocker`) and pub.dev (`slocker`)
-  directly, by trusted publishing;
+- npm (`@superrouteca/slocker`; the customer side's `@superrouteca/slocker-customer`, `slocker-ui`, `slocker-react` and
+  `slocker-react-native`), PyPI (`superroute-slocker`, the customer side as its extra `[customer]`), NuGet
+  (`Superroute.SLocker`; `Superroute.SLocker.Customer`, `.UI`, `.Wpf` and `.WinForms`) and pub.dev (`slocker`;
+  `slocker_customer` and `slocker_ui`) directly, by trusted publishing;
 - to the public repository `Goodneo-Solutions/slocker-releases`: the Swift package (a prebuilt XCFramework attached to
   that repository's GitHub Release of the version), the Maven repository (`maven/`, served by GitHub Pages) with
-  `ca.superroute:slocker` and `slocker-android`, and the Go module (`go/`, tag `go/v<version>`);
+  `ca.superroute:slocker` and `slocker-android` and the customer side's `slocker-customer`, `slocker-customer-kotlin`
+  and `slocker-ui-android`, and the Go modules (`go/`, tag `go/v<version>`; `go/customer`, tag
+  `go/customer/v<version>`);
+- to the public repository `Goodneo-Solutions/slocker-customer-releases`: the customer side for iOS and macOS
+  (`SLockerCustomer` and `SLockerUI` as prebuilt XCFrameworks attached to that repository's GitHub Release of the
+  version, depending on `sapp-releases`), so the carrier Swift package in `slocker-releases` depends on nothing;
 - to the public repository `Goodneo-Solutions/slocker-php`: the PHP package at its root, tag `v<version>`, which
   Packagist reads.
 

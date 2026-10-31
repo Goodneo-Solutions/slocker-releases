@@ -1,3 +1,24 @@
+# 0.2.0
+
+## SDK
+
+### Customer side (new)
+- **Smart lockers for customer apps**: the locker operations an app makes for a service provider's customers come to sLocker: parcels waiting in lockers and their pickup codes, opening the door to collect, handing a pickup over to someone else and taking it back; locker locations, their indoor guides and the customer's preferred locker; locker storage rentals (claiming, keeping, the return time, sending on, pickup sites, resending the code); and the locker shop (catalogue, orders, opening the door, refund requests, access codes).
+- **Same names as in sApp**: the 29 locker methods sApp 0.2.1 had keep exactly their names and arguments, so moving from sApp is a change of package, not of call.
+- **Locker resale**: list the resale terms and the person's deals, create a deal, release or revoke the buyer's code, abort, cancel or report a deal.
+- **Standalone or beside sApp**: create a customer client with the app code, the service provider's client code, the app key and a token store, or pass an sApp client the app already has to share one sign-in. Sign-in, token refresh, idempotency keys, retries and errors are sApp's own.
+- **Every language**: JavaScript and TypeScript, Dart, Swift, Kotlin, Java, C#, Python, PHP and Go.
+
+### Carrier side
+- **Unchanged**: the carrier and partner locker delivery API, its packages and their calls stay exactly as in 0.1.1 and do not depend on sApp.
+
+## UI kits
+
+### Flutter, web, React, React Native, SwiftUI, Jetpack Compose, WPF and WinForms (new)
+- **Pickup list**: the person's parcels in lockers with their pickup codes, remaining parcels and expiry, and opening the door after confirming.
+- **Locker map**: lockers near the person with distance, status and free compartments, search and filters for pickup, returns and free space, and the same lockers on the app's own sMap map, fitted to them; tapping a locker or its point selects it.
+- **Themed by sApp**: the components use the sApp UI kit's branding, strings in 14 languages and sign-in handling, as they did in sApp.
+
 # 0.1.1
 
 ## Licence

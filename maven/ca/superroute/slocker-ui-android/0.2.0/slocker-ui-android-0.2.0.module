@@ -1,0 +1,170 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "ca.superroute",
+    "module": "slocker-ui-android",
+    "version": "0.2.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "ca.superroute",
+          "module": "slocker-customer-kotlin",
+          "version": {
+            "requires": "0.2.0"
+          }
+        },
+        {
+          "group": "ca.superroute",
+          "module": "sapp-ui-android",
+          "version": {
+            "requires": "0.2.2"
+          }
+        },
+        {
+          "group": "androidx.compose",
+          "module": "compose-bom",
+          "version": {
+            "requires": "2025.10.01"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          },
+          "endorseStrictVersions": true
+        },
+        {
+          "group": "androidx.compose.runtime",
+          "module": "runtime"
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui"
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "slocker-ui-android-0.2.0.aar",
+          "url": "slocker-ui-android-0.2.0.aar",
+          "size": 114985,
+          "sha512": "a0b7770480f1a7b08253bb56bff75e904080674241322eef60d5e314cb3e1be9a68f2f6736e3afcbce5a092f9e880f7fc51c8bf08ae2755aa14d8e76972c7a07",
+          "sha256": "4f7b0570bd87723a269c2b7207ca29cb9e4cc75c18dbc18fb47b40cab46f1b85",
+          "sha1": "3d1394fb895e2b0839824219153afae6afacf1d3",
+          "md5": "43e19139974a9c20a05dd4cba6c78146"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.compose.foundation",
+          "module": "foundation"
+        },
+        {
+          "group": "androidx.compose.material3",
+          "module": "material3"
+        },
+        {
+          "group": "ca.superroute",
+          "module": "slocker-customer-kotlin",
+          "version": {
+            "requires": "0.2.0"
+          }
+        },
+        {
+          "group": "ca.superroute",
+          "module": "sapp-ui-android",
+          "version": {
+            "requires": "0.2.2"
+          }
+        },
+        {
+          "group": "androidx.compose",
+          "module": "compose-bom",
+          "version": {
+            "requires": "2025.10.01"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          },
+          "endorseStrictVersions": true
+        },
+        {
+          "group": "androidx.compose.runtime",
+          "module": "runtime"
+        },
+        {
+          "group": "androidx.compose.ui",
+          "module": "ui"
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.2.20"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "slocker-ui-android-0.2.0.aar",
+          "url": "slocker-ui-android-0.2.0.aar",
+          "size": 114985,
+          "sha512": "a0b7770480f1a7b08253bb56bff75e904080674241322eef60d5e314cb3e1be9a68f2f6736e3afcbce5a092f9e880f7fc51c8bf08ae2755aa14d8e76972c7a07",
+          "sha256": "4f7b0570bd87723a269c2b7207ca29cb9e4cc75c18dbc18fb47b40cab46f1b85",
+          "sha1": "3d1394fb895e2b0839824219153afae6afacf1d3",
+          "md5": "43e19139974a9c20a05dd4cba6c78146"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "slocker-ui-android-0.2.0-sources.jar",
+          "url": "slocker-ui-android-0.2.0-sources.jar",
+          "size": 8320,
+          "sha512": "98f27dab2f3e20fcc9a5964737d6d5964332187f02e288b830e5bbec30ff779ccaa51185b0f6e68491d593b074ca4320ad50eea66ec3b8baf6da540c1191a10f",
+          "sha256": "99f593d30b04ba4acd8482120b527bcfb39d086c96bab338e011a92f4e3dbc88",
+          "sha1": "4d2230e50f037c4defaa1d65177e2adfede43501",
+          "md5": "38b3ea209b8964eb52a0b565e1c3cfb3"
+        }
+      ]
+    }
+  ]
+}
