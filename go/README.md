@@ -239,7 +239,7 @@ $sl->partnerLockerDeliveries(status: 'delivered', perPage: 50);
 ### Java and Kotlin
 
 Add the Maven repository `https://goodneo-solutions.github.io/slocker-releases/maven`, then
-`implementation("ca.superroute:slocker:0.2.1")` — or, in an Android app, `ca.superroute:slocker-android:0.2.1`.
+`implementation("ca.superroute:slocker:0.2.2")` — or, in an Android app, `ca.superroute:slocker-android:0.2.2`.
 
 ```java
 Client sl = Client.builder().token(token).providerId(4611L).build();   // java.net.http, or HttpURLConnection on Android
@@ -332,7 +332,9 @@ the client scope is `pickups`, `locker-locations`, `locker-storage`, `locker-sho
 
 New in sLocker: `lockerResaleTerms`, `lockerResaleDeals`, `lockerResaleDeal`, `createLockerResaleDeal`,
 `releaseLockerResaleCode`, `revokeLockerResaleCode`, `abortLockerResaleDeal`, `cancelLockerResaleDeal`,
-`reportLockerResaleDeal` (`/app/v1/locker-resale/…`).
+`reportLockerResaleDeal` (`/app/v1/locker-resale/…`); from 0.2.2 `platformAppExtendPickup`
+(`POST /app/v1/pickups/{deliveryId}/extend`) and `platformAppPickupPreferences` / `platformAppSavePickupPreferences`
+(`GET` / `PUT /app/v1/pickups/preferences`).
 
 ### sLocker on its own
 
@@ -397,7 +399,7 @@ locker.api.platform_app_pickups(status='ready')
 ```
 
 ```swift
-// Package.swift: .package(url: "https://github.com/Goodneo-Solutions/slocker-customer-releases", from: "0.2.1")
+// Package.swift: .package(url: "https://github.com/Goodneo-Solutions/slocker-customer-releases", from: "0.2.2")
 // in the target: .product(name: "SLockerCustomer", package: "slocker-customer-releases"), and "SLockerUI" for the kit;
 // sApp (sapp-releases) comes with it.
 import SApp

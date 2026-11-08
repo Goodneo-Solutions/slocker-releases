@@ -1,0 +1,100 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "ca.superroute",
+    "module": "slocker",
+    "version": "0.2.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "slocker-0.2.2.jar",
+          "url": "slocker-0.2.2.jar",
+          "size": 34750,
+          "sha512": "27f61b5c02de50fa45378225e3123968b71db03640cb5505939f7eb2e6c3d24d0096f3740eb757283ac037c7a9d11e17ec136200e33f45fd00dd7004c8b4ce95",
+          "sha256": "fd9e588eab781fcbabfdc6f73e4aaad431015b47750daedf03a76e47bde56f9d",
+          "sha1": "9a741f49dc799bbd8cb74ece46b47a55112a4759",
+          "md5": "1bddba44ae269741636fb49cedce9124"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "slocker-0.2.2.jar",
+          "url": "slocker-0.2.2.jar",
+          "size": 34750,
+          "sha512": "27f61b5c02de50fa45378225e3123968b71db03640cb5505939f7eb2e6c3d24d0096f3740eb757283ac037c7a9d11e17ec136200e33f45fd00dd7004c8b4ce95",
+          "sha256": "fd9e588eab781fcbabfdc6f73e4aaad431015b47750daedf03a76e47bde56f9d",
+          "sha1": "9a741f49dc799bbd8cb74ece46b47a55112a4759",
+          "md5": "1bddba44ae269741636fb49cedce9124"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "slocker-0.2.2-sources.jar",
+          "url": "slocker-0.2.2-sources.jar",
+          "size": 18822,
+          "sha512": "08e2c3e68c8ff656ae9ec01fac59a7d8107f5ca178e429dfe30a5ff8fcd0fb0dd02e9b025eb1a42338c5728f20552d85ada51f663cf962394e78b22d8f8af5b9",
+          "sha256": "5ca73db0e101c80ac773fb3dc6e853cf00fe5da676752b69fc1e73caaf4e6357",
+          "sha1": "13da214d7b8c2df1a0b75d1650bc1920035b5453",
+          "md5": "b390c130642d512d7f3e02d636862c3e"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "slocker-0.2.2-javadoc.jar",
+          "url": "slocker-0.2.2-javadoc.jar",
+          "size": 155890,
+          "sha512": "4939b2757c9a39589ced859e5e7d2cc8927eae603abe2b6bc416e6f0d8ad497fbb0c90f58973899b10cdf961c45cb538f033bcc31ee3d3286115ea1a92fe2bd7",
+          "sha256": "fbf3e9c8b89dec67e4b40b8e21d0a9808d0f8c4b588da2d139dc64f92f1c605d",
+          "sha1": "0bd186388c648426aa679355bee1661cc29a6e7c",
+          "md5": "708f5a1a07291701fec5f4125e4d8f79"
+        }
+      ]
+    }
+  ]
+}

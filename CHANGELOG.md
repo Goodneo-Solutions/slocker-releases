@@ -1,3 +1,16 @@
+# 0.2.2
+
+## SDK
+
+### Customer side
+- **Extend a pickup**: when the service provider allows it, the person extends the pickup time of a parcel waiting in a locker by the hours it sets. A pickup now says when it must be collected by and what extension is offered.
+- **Low compartments**: read whether the service provider offers low compartments and ask for them, or stop asking, for the person's locker parcels.
+
+## UI kits
+
+### Flutter, web, React, React Native, SwiftUI, Jetpack Compose, WPF and WinForms
+- **Pickup list**: shows the pickup deadline and, when an extension is offered, a button that extends it after confirming, in 14 languages.
+
 # 0.2.1
 
 ## SDK

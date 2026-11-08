@@ -25,6 +25,7 @@ var lockerOperations = func() map[string]sapp.Operation {
 	m["lockerResaleDeals"] = sapp.Operation{Method: "GET", Path: "/app/v1/locker-resale/deals", Auth: sapp.AuthToken, Query: []string{"status", "open", "page", "per_page"}, Body: sapp.BodyNone}
 	m["lockerResaleTerms"] = sapp.Operation{Method: "GET", Path: "/app/v1/locker-resale/terms", Auth: sapp.AuthToken, Query: []string{"locale"}, Body: sapp.BodyNone}
 	m["platformAppCollectPickup"] = sapp.Operation{Method: "POST", Path: "/app/v1/pickups/{deliveryId}/collect", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyJSON}
+	m["platformAppExtendPickup"] = sapp.Operation{Method: "POST", Path: "/app/v1/pickups/{deliveryId}/extend", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyNone}
 	m["platformAppHandOverPickup"] = sapp.Operation{Method: "POST", Path: "/app/v1/pickups/{deliveryId}/handoff", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyJSON}
 	m["platformAppLockerLocation"] = sapp.Operation{Method: "GET", Path: "/app/v1/locker-locations/{locationId}", Auth: sapp.AuthToken, Query: []string{"latitude", "longitude", "origin_address_1", "origin_address_2", "origin_city", "origin_province", "origin_country", "origin_postcode"}, Body: sapp.BodyNone}
 	m["platformAppLockerLocationGuide"] = sapp.Operation{Method: "GET", Path: "/app/v1/locker-locations/{locationId}/guide", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyNone}
@@ -50,7 +51,9 @@ var lockerOperations = func() map[string]sapp.Operation {
 	m["platformAppLockerStorageReturnTime"] = sapp.Operation{Method: "POST", Path: "/app/v1/locker-storage/rentals/{id}/return-time", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyJSON}
 	m["platformAppLockerStorageShipment"] = sapp.Operation{Method: "POST", Path: "/app/v1/locker-storage/rentals/{id}/shipment", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyJSON}
 	m["platformAppPickup"] = sapp.Operation{Method: "GET", Path: "/app/v1/pickups/{deliveryId}", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyNone}
+	m["platformAppPickupPreferences"] = sapp.Operation{Method: "GET", Path: "/app/v1/pickups/preferences", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyNone}
 	m["platformAppPickups"] = sapp.Operation{Method: "GET", Path: "/app/v1/pickups", Auth: sapp.AuthToken, Query: []string{"status", "per_page", "page"}, Body: sapp.BodyNone}
+	m["platformAppSavePickupPreferences"] = sapp.Operation{Method: "PUT", Path: "/app/v1/pickups/preferences", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyJSON}
 	m["platformAppTakeBackPickup"] = sapp.Operation{Method: "POST", Path: "/app/v1/pickups/{deliveryId}/handoff/revoke", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyNone}
 	m["platformAppUpdateLockerPreference"] = sapp.Operation{Method: "PUT", Path: "/app/v1/locker-locations/{locationId}/preference", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyJSON}
 	m["releaseLockerResaleCode"] = sapp.Operation{Method: "POST", Path: "/app/v1/locker-resale/deals/{id}/release", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyNone}
@@ -149,6 +152,17 @@ type PlatformAppCollectPickupParams struct {
 // PlatformAppCollectPickup — POST /app/v1/pickups/{deliveryId}/collect — Collect and remotely open a locker pickup
 func (a *LockerAPI) PlatformAppCollectPickup(ctx context.Context, p PlatformAppCollectPickupParams, opts ...sapp.CallOption) (any, error) {
 	return a.call(ctx, lockerOperations["platformAppCollectPickup"], map[string]any{"deliveryId": p.DeliveryId}, p.Body, nil, opts...)
+}
+
+// PlatformAppExtendPickupParams are the parameters of LockerAPI.PlatformAppExtendPickup.
+type PlatformAppExtendPickupParams struct {
+	// DeliveryId is "deliveryId" (path, required)
+	DeliveryId int64
+}
+
+// PlatformAppExtendPickup — POST /app/v1/pickups/{deliveryId}/extend — Extend the pickup time of a locker pickup
+func (a *LockerAPI) PlatformAppExtendPickup(ctx context.Context, p PlatformAppExtendPickupParams, opts ...sapp.CallOption) (any, error) {
+	return a.call(ctx, lockerOperations["platformAppExtendPickup"], map[string]any{"deliveryId": p.DeliveryId}, nil, nil, opts...)
 }
 
 // PlatformAppHandOverPickupParams are the parameters of LockerAPI.PlatformAppHandOverPickup.
@@ -564,6 +578,11 @@ func (a *LockerAPI) PlatformAppPickup(ctx context.Context, p PlatformAppPickupPa
 	return a.call(ctx, lockerOperations["platformAppPickup"], map[string]any{"deliveryId": p.DeliveryId}, nil, nil, opts...)
 }
 
+// PlatformAppPickupPreferences — GET /app/v1/pickups/preferences — Locker pickup preferences
+func (a *LockerAPI) PlatformAppPickupPreferences(ctx context.Context, opts ...sapp.CallOption) (any, error) {
+	return a.call(ctx, lockerOperations["platformAppPickupPreferences"], nil, nil, nil, opts...)
+}
+
 // PlatformAppPickupsParams are the parameters of LockerAPI.PlatformAppPickups.
 type PlatformAppPickupsParams struct {
 	// Status is "status" (query, optional. Pickup status)
@@ -579,6 +598,17 @@ type PlatformAppPickupsParams struct {
 // PlatformAppPickups — GET /app/v1/pickups — List customer locker pickups
 func (a *LockerAPI) PlatformAppPickups(ctx context.Context, p PlatformAppPickupsParams, opts ...sapp.CallOption) (any, error) {
 	return a.call(ctx, lockerOperations["platformAppPickups"], map[string]any{"status": p.Status, "per_page": p.PerPage, "page": p.Page}, nil, nil, opts...)
+}
+
+// PlatformAppSavePickupPreferencesParams are the parameters of LockerAPI.PlatformAppSavePickupPreferences.
+type PlatformAppSavePickupPreferencesParams struct {
+	// Body is the request body (required).
+	Body map[string]any
+}
+
+// PlatformAppSavePickupPreferences — PUT /app/v1/pickups/preferences — Save locker pickup preferences
+func (a *LockerAPI) PlatformAppSavePickupPreferences(ctx context.Context, p PlatformAppSavePickupPreferencesParams, opts ...sapp.CallOption) (any, error) {
+	return a.call(ctx, lockerOperations["platformAppSavePickupPreferences"], map[string]any{}, p.Body, nil, opts...)
 }
 
 // PlatformAppTakeBackPickupParams are the parameters of LockerAPI.PlatformAppTakeBackPickup.
