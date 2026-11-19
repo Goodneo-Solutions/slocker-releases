@@ -1,3 +1,10 @@
+# 0.2.5
+
+## SDK
+
+### Every package
+- **Version 0.2.5**: released together with Superroute's operator mode for its own apps. The public packages behave as in 0.2.2.
+
 # 0.2.2
 
 ## SDK

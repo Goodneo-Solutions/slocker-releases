@@ -19,7 +19,7 @@ import (
 )
 
 // Version is the SDK version.
-const Version = "0.2.2"
+const Version = "0.2.5"
 
 // DefaultBaseURL is the production API host.
 const DefaultBaseURL = "https://api.superroute.ca"
