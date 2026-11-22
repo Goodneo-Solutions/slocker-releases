@@ -38,6 +38,7 @@ var lockerOperations = func() map[string]sapp.Operation {
 	m["platformAppLockerShopOpen"] = sapp.Operation{Method: "POST", Path: "/app/v1/locker-shop/orders/{id}/open", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyNone}
 	m["platformAppLockerShopOrder"] = sapp.Operation{Method: "GET", Path: "/app/v1/locker-shop/orders/{id}", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyNone}
 	m["platformAppLockerShopOrders"] = sapp.Operation{Method: "GET", Path: "/app/v1/locker-shop/orders", Auth: sapp.AuthToken, Query: []string{"scope", "page", "per_page"}, Body: sapp.BodyNone}
+	m["platformAppLockerShopRecordInterest"] = sapp.Operation{Method: "POST", Path: "/app/v1/locker-shop/interest", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyJSON}
 	m["platformAppLockerShopRefundRequest"] = sapp.Operation{Method: "POST", Path: "/app/v1/locker-shop/orders/{id}/refund-request", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyNone}
 	m["platformAppLockerStorageClaim"] = sapp.Operation{Method: "POST", Path: "/app/v1/locker-storage/rentals/claim", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyJSON}
 	m["platformAppLockerStorageDelivery"] = sapp.Operation{Method: "POST", Path: "/app/v1/locker-storage/rentals/{id}/delivery", Auth: sapp.AuthToken, Query: []string{}, Body: sapp.BodyJSON}
@@ -412,6 +413,17 @@ type PlatformAppLockerShopOrdersParams struct {
 // PlatformAppLockerShopOrders — GET /app/v1/locker-shop/orders — The caller's shop purchases
 func (a *LockerAPI) PlatformAppLockerShopOrders(ctx context.Context, p PlatformAppLockerShopOrdersParams, opts ...sapp.CallOption) (any, error) {
 	return a.call(ctx, lockerOperations["platformAppLockerShopOrders"], map[string]any{"scope": p.Scope, "page": p.Page, "per_page": p.PerPage}, nil, nil, opts...)
+}
+
+// PlatformAppLockerShopRecordInterestParams are the parameters of LockerAPI.PlatformAppLockerShopRecordInterest.
+type PlatformAppLockerShopRecordInterestParams struct {
+	// Body is the request body (required).
+	Body map[string]any
+}
+
+// PlatformAppLockerShopRecordInterest — POST /app/v1/locker-shop/interest — Count product views and cart adds
+func (a *LockerAPI) PlatformAppLockerShopRecordInterest(ctx context.Context, p PlatformAppLockerShopRecordInterestParams, opts ...sapp.CallOption) (any, error) {
+	return a.call(ctx, lockerOperations["platformAppLockerShopRecordInterest"], map[string]any{}, p.Body, nil, opts...)
 }
 
 // PlatformAppLockerShopRefundRequestParams are the parameters of LockerAPI.PlatformAppLockerShopRefundRequest.

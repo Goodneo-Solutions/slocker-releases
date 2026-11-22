@@ -1,3 +1,10 @@
+# 0.2.6
+
+## SDK
+
+### Customer side
+- **Product views and cart adds**: report which locker shop products a person opened and put in the cart, so the service provider and the merchant see how each product sells on each cabinet. Only counts are kept; nothing about the person.
+
 # 0.2.5
 
 ## SDK

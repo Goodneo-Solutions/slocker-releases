@@ -326,6 +326,7 @@ the client scope is `pickups`, `locker-locations`, `locker-storage`, `locker-sho
 | `platformAppLockerShopItems`, `platformAppLockerShopOrders`, `platformAppLockerShopOrder` | `GET /app/v1/locker-shop/items`, `…/orders`, `…/orders/{id}` |
 | `platformAppLockerShopCreateOrder`, `platformAppLockerShopOpen`, `platformAppLockerShopRefundRequest` | `POST /app/v1/locker-shop/orders`, `…/{id}/open`, `…/{id}/refund-request` |
 | `platformAppLockerShopIssueAccessCode` | `POST /app/v1/locker-shop/access-codes` |
+| `platformAppLockerShopRecordInterest` | `POST /app/v1/locker-shop/interest` (product views and cart adds, counts only) |
 | `platformAppLockerStorageRentals`, `platformAppLockerStorageRental` | `GET /app/v1/locker-storage/rentals`, `…/{id}` |
 | `platformAppLockerStorageClaim` | `POST /app/v1/locker-storage/rentals/claim` |
 | `platformAppLockerStorageKeep`, `…ReturnTime`, `…ResendCode`, `…OnwardQuote`, `…Delivery`, `…Shipment`, `…PickupSite`, `…PickupSiteCancel` | `POST /app/v1/locker-storage/rentals/{id}/keep`, `return-time`, `resend-code`, `onward-quote`, `delivery`, `shipment`, `pickup-site`, `pickup-site/cancel` |
